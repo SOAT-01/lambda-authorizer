@@ -18,7 +18,7 @@ provider:
   stage: prod
   region: us-east-1
   versionFunctions: false
-  # environment: ${file(serverless/environment.yml)}
+  environment: ${file(serverless/environment.yml)}
   apiGateway:
     apiKeys:
       - authorizer-api-key
