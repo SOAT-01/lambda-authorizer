@@ -25,7 +25,7 @@ provider:
 
 functions:
   - generateUserToken:
-      handler: src/functions/generate-token/post.api
+      handler: src/functions/generate-token/post.handler
       vpc:
         securityGroupIds:
           - Ref: LambdaSecurityGroup
@@ -37,6 +37,12 @@ functions:
             path: /generate-token
             method: post
             cors: true
+  - authorizer:
+      handler: src/functions/validate-token/validateUserToken.handler
+      vpc:
+        securityGroupIds:
+          - Ref: LambdaSecurityGroup
+        subnetIds: ${ssm:/subnets}
 resources:
   - ${file(serverless/resources.yml)}
 plugins:
