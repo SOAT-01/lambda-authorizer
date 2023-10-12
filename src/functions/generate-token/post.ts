@@ -22,7 +22,7 @@ const generateUserToken = async (event: APIGatewayEvent) => {
 
     const token = jwt.sign({ cpf }, process.env.PRIVATE_KEY, {
       algorithm: "RS256",
-      expiresIn: "1h",
+      expiresIn: process.env.TOKEN_EXPIRATION_TIME,
     });
     return ApiResponse(200, { token });
   } catch (error) {

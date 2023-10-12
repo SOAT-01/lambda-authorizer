@@ -1,4 +1,6 @@
 PRIVATE_KEY: "${ssm:private-key}"
+PUBLIC_KEY: "${ssm:public-key}"
+TOKEN_EXPIRATION_TIME: "${ssm:token-expiration-time}"
 DATABASE_USERNAME: "${ssm:database-username}"
 DATABASE_PASSWORD: "${ssm:database-password}"
 DATABASE_HOST: "${ssm:database-host}"
