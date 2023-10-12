@@ -33,5 +33,7 @@ functions:
             path: /generate-token
             method: post
             cors: true
+resources:
+  - ${file(serverless/resources.yml)}
 plugins:
   - serverless-esbuild
