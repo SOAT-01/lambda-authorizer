@@ -1,1 +1,6 @@
 PRIVATE_KEY: "${ssm:private-key}"
+DATABASE_USERNAME: "${ssm:database-username}"
+DATABASE_PASSWORD: "${ssm:database-password}"
+DATABASE_HOST: "${ssm:database-host}"
+DATABASE_PORT: "${ssm:database-port}"
+DATABASE_NAME: "${ssm:database-name}"

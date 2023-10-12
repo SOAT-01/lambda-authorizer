@@ -26,6 +26,10 @@ provider:
 functions:
   - generateUserToken:
       handler: src/functions/generate-token/post.api
+      vpc:
+        securityGroupIds:
+          - Ref: LambdaSecurityGroup
+        subnetIds: ${ssm:/subnets}
       memorySize: 256
       timeout: 18
       events:
