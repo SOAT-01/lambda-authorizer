@@ -19,17 +19,10 @@ provider:
   region: us-east-1
   versionFunctions: false
   environment: ${file(serverless/environment.yml)}
-  apiGateway:
-    apiKeys:
-      - authorizer-api-key
 
 functions:
   - generateUserToken:
       handler: src/functions/generate-token/post.handler
-      vpc:
-        securityGroupIds:
-          - Ref: LambdaSecurityGroup
-        subnetIds: ${ssm:/subnets}
       memorySize: 256
       timeout: 18
       events:
@@ -39,11 +32,6 @@ functions:
             cors: true
   - authorizer:
       handler: src/functions/validate-token/validateUserToken.handler
-      vpc:
-        securityGroupIds:
-          - Ref: LambdaSecurityGroup
-        subnetIds: ${ssm:/subnets}
-resources:
-  - ${file(serverless/resources.yml)}
+
 plugins:
   - serverless-esbuild
