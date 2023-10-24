@@ -26,10 +26,9 @@ functions:
       memorySize: 256
       timeout: 18
       events:
-        - http:
+        - httpApi:
             path: /generate-token
-            method: post
-            cors: true
+            method: POST
   - authorizer:
       handler: src/functions/validate-token/validateUserToken.handler
 
