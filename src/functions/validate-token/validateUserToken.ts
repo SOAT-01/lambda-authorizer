@@ -1,16 +1,16 @@
 import { Callback, Context } from "aws-lambda";
 import jwt from "jsonwebtoken";
 import { getClienteByCpf } from "@/gateway/clienteGateway";
-import { generatePolicy } from "@/utils/generatePolicy";
 
 const validateUserToken = async (
   event: any,
   _: Context,
   callback: Callback
 ) => {
-  const [tokenType, token] = event.headers.Authorization.split(" ");
+  const [tokenType, token] = event?.headers?.authorization?.split(" ");
+
   if (tokenType !== "Bearer") {
-    return callback("Unauthorized");
+    return callback(null, { isAuthorized: false });
   }
 
   try {
@@ -21,16 +21,14 @@ const validateUserToken = async (
     if (!!verifiedToken?.cpf) {
       const results = await getClienteByCpf(verifiedToken?.cpf);
       if (results[0].length === 0) {
-        return callback("Unauthorized");
+        return callback(null, { isAuthorized: false });
       }
     }
-    return callback(
-      null,
-      generatePolicy(verifiedToken.cpf, "Allow", event.methodArn)
-    );
+
+    return callback(null, { isAuthorized: true });
   } catch (error) {
-    console.log(error);
-    return callback("Unauthorized");
+    console.error(error);
+    return callback(null, { isAuthorized: false });
   }
 };
 

@@ -17,7 +17,6 @@ provider:
   timeout: 30
   stage: prod
   region: us-east-1
-  versionFunctions: false
   environment: ${file(serverless/environment.yml)}
 
 functions:
